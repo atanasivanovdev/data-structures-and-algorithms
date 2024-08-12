@@ -21,6 +21,8 @@ Explanation: The sum of -1 and 0 is -1. Therefore index1 = 1, index2 = 2. We ret
 """
 from typing import List
 
+# Time complexity: O(n)
+# Space complexity: O(1)
 def twoSum(numbers: List[int], target: int) -> List[int]:
     start, end = 0, len(numbers) - 1
     while start < end:
