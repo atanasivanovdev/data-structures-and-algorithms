@@ -21,14 +21,13 @@ class Stack():
     def push(self, value):
         new_node = Node(value, None)
 
-        if self.top is None:
+        if self.length == 0:
             self.bottom = new_node
             self.top = new_node
-            self.length += 1
-            return
-        
-        new_node.next = self.top
-        self.top = new_node
+        else:
+            new_node.next = self.top
+            self.top = new_node
+
         self.length += 1
         return
 
@@ -36,12 +35,8 @@ class Stack():
         if self.length == 0:
             raise ValueError("Stack is empty")
         
-        if self.top.next is None:
-            item = self.bottom.value
+        if self.top == self.bottom:
             self.bottom = None
-            self.top = None
-            self.length -= 1
-            return item
         
         current = self.top
         self.top = self.top.next
@@ -76,7 +71,6 @@ stack.append(10)
 stack.append(30)
 stack.append(5)
 stack.append(6)
-print(len(stack))
 print(stack.pop())
 print(stack.pop())
 print(stack.pop())
