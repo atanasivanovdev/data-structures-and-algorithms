@@ -12,30 +12,30 @@ Output: 9
 
 from typing import List
 
+# Time complexity: O(n^2)
+# Space complexity: O(1)
 def trap(height: List[int]) -> int:
     left, right = 0, 0
     result = 0
     while right < len(height):
         right += 1
-        if height[left] < height[right]:
-            left = right
-            right += 1
-            print(height[left])
-        else:
-            total = 0
-            while left != right:
-                if left == len(height) - 1:
-                    return
-                elif right == len(height) - 1:
-                    left += 1
-                    right = left + 1
-                    total = 0
-                elif height[right] < height[left]:
-                    total += (height[left] - height[right])
-                    right += 1
-                else:
-                    left = right
-                    
+        total = 0
+        while left != right:
+            if left == len(height) - 1:
+                break
+            elif height[right] >= height[left]:
+                left = right
+            elif right == len(height) - 1:
+                left += 1
+                right = left + 1
+                total = 0
+            elif height[right] < height[left]:
+                total += (height[left] - height[right])
+                right += 1
+
+        result += total 
+    return result
+
 # Test cases
 input1 = [0,1,0,2,1,0,1,3,2,1,2,1]
 output1 = trap(input1)
