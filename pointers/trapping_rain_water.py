@@ -46,3 +46,43 @@ output2 = trap(input2)
 assert output2 == 9, f"Test case 2 failed: {output2}"
 
 print("All test cases passed!")
+
+
+from typing import List
+
+# Time complexity: O(n)
+# Space complexity: O(n)
+def trap_improved(height: List[int]) -> int:
+    length = len(height)
+    left, right = 0, len(height) - 1
+    maxLeftArray, maxRightArray = [0] * length, [0] * length
+    maxLeft, maxRight = height[left], height[right]
+    result = 0
+
+    while left < length:
+        maxLeft = max(maxLeft, height[left])
+        maxRight = max(maxRight, height[right])
+
+        maxLeftArray[left] = maxLeft
+        maxRightArray[right] = maxRight   
+
+        left += 1
+        right -= 1
+         
+    for i in range(len(height)):
+        total_water = min(maxLeftArray[i], maxRightArray[i]) - height[i]
+        if total_water > 0:
+            result += total_water
+            
+    return result
+
+# Test cases
+input1 = [0,1,0,2,1,0,1,3,2,1,2,1]
+output1 = trap_improved(input1)
+assert output1 == 6, f"Test case 1 failed: {output1}"
+
+input2 = [4,2,0,3,2,5]
+output2 = trap_improved(input2)
+assert output2 == 9, f"Test case 2 failed: {output2}"
+
+print("All test cases passed!")
