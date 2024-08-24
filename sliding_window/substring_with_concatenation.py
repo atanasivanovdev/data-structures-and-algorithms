@@ -27,19 +27,41 @@ The substring starting at 9 is "barthefoo". It is the concatenation of ["bar","t
 The substring starting at 12 is "thefoobar". It is the concatenation of ["the","foo","bar"].
 '''
 from typing import List
+from collections import defaultdict
 
 def findSubstring(s: str, words: List[str]) -> List[int]:
     result = []
-    if not words:
+    if not words or not s:
         return result
     
-    counter = 0
+    words_count = defaultdict(int)
+
+    for word in words:
+        words_count[word] += 1
+
+    word_size = len(words[0])
+    total_length = len(words) * word_size
     left = 0
-    right = 0
+    right = word_size
 
     while right < len(s):
 
-        right += 1
+        word_right_s = s[right-word_size:right]
+        word_left_s = s[left-word_size:left]
+
+        if word_right_s in words_count:
+            words_count[word_right_s] -= 1
+
+        if word_left_s in words_count:
+            words_count[word_left_s] += 1
+
+        if max(words_count.values()) == 0:
+            result.append(left)
+
+        right += word_size
+        
+        if right > total_length:
+            left += word_size
 
     return result
 
