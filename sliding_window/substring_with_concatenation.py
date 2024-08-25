@@ -3,7 +3,6 @@
 # For example, if words = ["ab","cd","ef"], then "abcdef", "abefcd", "cdabef", "cdefab", "efabcd", and "efcdab" are all concatenated strings. "acdbef" is not a concatenated string because it is not the concatenation of any permutation of words.
 # Return an array of the starting indices of all the concatenated substrings in s. You can return the answer in any order.
 
- 
 '''
 Example 1:
 Input: s = "barfoothefoobarman", words = ["foo","bar"]
