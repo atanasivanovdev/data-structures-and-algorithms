@@ -34,34 +34,44 @@ def findSubstring(s: str, words: List[str]) -> List[int]:
     if not words or not s:
         return result
     
+    word_size = len(words[0])
+    total_length = len(words) * word_size
+
+    if len(s) < total_length:
+        return result
+    
     words_count = defaultdict(int)
 
     for word in words:
         words_count[word] += 1
 
-    word_size = len(words[0])
-    total_length = len(words) * word_size
     left = 0
     right = word_size
 
-    while right < len(s):
-
-        word_right_s = s[right-word_size:right]
-        word_left_s = s[left-word_size:left]
-
-        if word_right_s in words_count:
-            words_count[word_right_s] -= 1
-
-        if word_left_s in words_count:
-            words_count[word_left_s] += 1
-
-        if max(words_count.values()) == 0:
-            result.append(left)
-
-        right += word_size
+    for i in range(word_size):
+        left = i
+        current_count = defaultdict(int)
+        count = 0
         
-        if right > total_length:
-            left += word_size
+        for right in range(i, len(s) - word_size + 1, word_size):
+            word_right_s = s[right:right + word_size]
+            
+            if word_right_s in words_count:
+                current_count[word_right_s] += 1
+                count += 1
+                
+                while current_count[word_right_s] > words_count[word_right_s]:
+                    word_left_s = s[left:left + word_size]
+                    current_count[word_left_s] -= 1
+                    count -= 1
+                    left += word_size
+                
+                if count == len(words):
+                    result.append(left)
+            else:
+                current_count.clear()
+                count = 0
+                left = right + word_size
 
     return result
 
@@ -84,4 +94,9 @@ words3 = ["bar", "foo", "the"]
 expected_output3 = [6, 9, 12]
 assert findSubstring(s3, words3) == expected_output3, f"Test case 3 failed: {findSubstring(s3, words3)} != {expected_output3}"
 
+# Test case 4
+s4 = "wordgoodgoodgoodbestword"
+words4 = ["word","good","best","good"]
+expected_output4 = [8]
+assert findSubstring(s4, words4) == expected_output4, f"Test case 3 failed: {findSubstring(s4, words4)} != {expected_output4}"
 print("All test cases passed!")
