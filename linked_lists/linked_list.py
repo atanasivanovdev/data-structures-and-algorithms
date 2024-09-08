@@ -134,6 +134,21 @@ class LinkedList():
         self.length -= 1
         
         return current
+    
+    def delete_duplicates(self):
+        if self.head is None:
+            raise ValueError("List is empty")
+        
+        if self.head.next is None:
+            return
+        
+        left, right = self.head, self.head.next
+        while right is not None:
+            if left.value != right.value:
+                left.next = right
+                left = right
+            right = right.next
+        left.next = None
 
     def display(self):
         node = self.head
@@ -142,7 +157,14 @@ class LinkedList():
             node = node.next
 
 linked_list = LinkedList()
+linked_list.append(1)
+linked_list.append(1)
+linked_list.append(2)
+linked_list.append(2)
 linked_list.append(3)
+linked_list.append(3)
+linked_list.append(3)
+linked_list.delete_duplicates()
 linked_list.append(10)
 linked_list.append(4)
 linked_list.prepend(89)
@@ -152,5 +174,5 @@ linked_list.remove_first()
 linked_list.remove_last()
 linked_list.remove_last()
 
-# linked_list.remove_first()
+linked_list.remove_first()
 linked_list.display()
