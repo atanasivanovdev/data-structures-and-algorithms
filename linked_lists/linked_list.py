@@ -147,6 +147,7 @@ class LinkedList():
             if left.value != right.value:
                 left.next = right
                 left = right
+                self.length -= 1
             right = right.next
         left.next = None
 
