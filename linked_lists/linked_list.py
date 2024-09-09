@@ -150,6 +150,24 @@ class LinkedList():
             right = right.next
         left.next = None
 
+    def reverse(self):
+        if self.head is None or self.head.next is None:
+            return
+        
+        prev = self.head
+        current = self.head.next
+        self.head.next = None
+
+        while current is not None:
+            temp = current.next
+            current.next = prev
+            prev = current
+            current = temp
+
+        self.tail = self.head
+        self.head = prev
+        
+
     def display(self):
         node = self.head
         while node is not None:
@@ -158,12 +176,11 @@ class LinkedList():
 
 linked_list = LinkedList()
 linked_list.append(1)
-linked_list.append(1)
-linked_list.append(2)
 linked_list.append(2)
 linked_list.append(3)
-linked_list.append(3)
-linked_list.append(3)
+linked_list.append(4)
+linked_list.append(5)
+linked_list.reverse()
 linked_list.delete_duplicates()
 linked_list.append(10)
 linked_list.append(4)
@@ -173,6 +190,5 @@ linked_list.insert(16, 3)
 linked_list.remove_first()
 linked_list.remove_last()
 linked_list.remove_last()
-
 linked_list.remove_first()
 linked_list.display()
