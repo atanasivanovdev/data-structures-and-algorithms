@@ -9,7 +9,7 @@ linked_list2.append(5)
 linked_list2.append(7)
 
 
-def mergeTwoLists(list1, list2):
+def merge_two_lists(list1, list2):
     if list1 is None:
         return list2
     
@@ -45,4 +45,4 @@ def mergeTwoLists(list1, list2):
 
     return new_head
 
-print(mergeTwoLists(linked_list1, linked_list2))
+print(merge_two_lists(linked_list1, linked_list2))
