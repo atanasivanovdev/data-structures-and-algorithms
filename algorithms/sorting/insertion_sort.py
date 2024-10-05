@@ -4,7 +4,7 @@ from typing import List
 
 def insertion_sort(numbers: List) -> List:
     n = len(numbers)
-    for i in range(0, n-1):
+    for i in range(n-1):
         if numbers[i] > numbers[i+1]:
             end = i
             while end >= 0 and numbers[end + 1] < numbers[end]:

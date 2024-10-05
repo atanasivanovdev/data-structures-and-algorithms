@@ -167,6 +167,25 @@ class LinkedList():
 
         self.tail = self.head
         self.head = prev
+
+    def remove_nth_node_from_end(self, n):
+        if self.head is None:
+            return
+        
+        slow = fast = self.head
+
+        for _ in range(n):
+            fast = fast.next
+
+        if fast is None:
+            self.head = self.head.next
+            return
+
+        while fast.next != None:
+            slow = slow.next
+            fast = fast.next
+
+        slow.next = slow.next.next
         
 
     def display(self):
@@ -181,6 +200,7 @@ linked_list.append(2)
 linked_list.append(3)
 linked_list.append(4)
 linked_list.append(5)
+linked_list.remove_nth_node_from_end(2)
 linked_list.reverse()
 linked_list.delete_duplicates()
 linked_list.append(10)
