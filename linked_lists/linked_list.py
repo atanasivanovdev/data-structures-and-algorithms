@@ -194,6 +194,37 @@ class LinkedList():
             print(node.value)
             node = node.next
 
+
+    def oddEvenList(self):
+        """
+        :type head: Optional[ListNode]
+        :rtype: Optional[ListNode]
+        """
+        if not self.head or not self.head.next:
+            return
+
+        odd = self.head
+        even = self.head.next
+        even_head = even
+
+        while even and even.next:
+            odd.next = even.next
+            odd.next.prev = odd
+            odd = odd.next
+
+            even.next = odd.next
+            if even.next:
+                even.next.prev = even
+            even = even.next
+
+        odd.next = even_head
+        if even_head:
+            even_head.prev = odd
+
+        self.tail = even
+        while self.tail and self.tail.next:
+            self.tail = self.tail.next
+
 linked_list = LinkedList()
 linked_list.append(1)
 linked_list.append(2)
@@ -212,4 +243,5 @@ linked_list.remove_first()
 linked_list.remove_last()
 linked_list.remove_last()
 linked_list.remove_first()
+linked_list.oddEvenList()
 linked_list.display()
